@@ -24,7 +24,19 @@ public class Main {
                     " (username varchar(255) NOT NULL, " +
                     "password varchar(255) NOT NULL);";
             statement.executeUpdate(sql);
-            System.out.println("Table created.");
+            System.out.println("Table \"" + tableName + "\" created.");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteTable(String tableName) {
+        try(Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+            Statement statement = conn.createStatement()) {
+            String sql = "DROP TABLE " + tableName + ";";
+            statement.executeUpdate(sql);
+            System.out.println("Table \"" + tableName + "\" deleted.");
         }
         catch (SQLException e) {
             e.printStackTrace();
