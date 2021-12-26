@@ -10,6 +10,12 @@ public class Main {
 
     static String website;
 
+    public static void main(String[] args) {
+        createTable("test");
+        insertValues("test", "xyz", "sus");
+        printValues("test");
+    }
+
     public static void createTable(String tableName) {
         website = tableName;
         try(Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
@@ -37,15 +43,15 @@ public class Main {
         }
     }
 
-    public static void printValues(String tableName, String url, String username) {
+    public static void printValues(String tableName) {
         String query = "SELECT username, password FROM " + tableName;
         try(Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query)) {
 
             while (rs.next()) {
-                System.out.println("Username: " + url);
-                System.out.println("Password: " + url);
+                System.out.println("Username: " + rs.getString("username"));
+                System.out.println("Password: " + rs.getString("password"));
             }
         }
         catch (SQLException e) {
